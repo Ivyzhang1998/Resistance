@@ -15,7 +15,7 @@ class Player:
            j = random.randint(0, 1)
            return j == 0
 
-        return False
+        return True
 
     #select a subset of players with size k. Must select itself
     def select_players(self, k):
