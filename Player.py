@@ -11,13 +11,13 @@ class Player:
         self.color = color
 
     def vote(self):
-        if self.color ==  "RED":
+        if self.color == "RED":
            j = random.randint(0, 1)
            return j == 0
 
         return True
 
-    #select a subset of players with size k. Must select itself
+    #randomly select a subset of players with size k. Must select itself
     def select_players(self, k):
         player_list = [0,1,2,3,4]
         player_list.remove(self.index)
