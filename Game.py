@@ -28,40 +28,30 @@ class Game:
     """
     Do a round of mission
     @Param: index of the mission leader
-    @Return: (leader, selected_players, result = False/True).
-    False = fails; True = Mission succeeds
+    @Return: (selected_players, result = failed/passed).
     """
-    def do_mission(self,round_num, selected_players = None):
+    def do_mission(self,player_num, selected_players = None):
         if selected_players == None:
-           player = self.players[round_num]
-           k = self.num_misison_players[round_num]
+           player = self.players[player_num]
+           k = self.num_misison_players[player_num]
            selected_players = player.select_players(k)
         self.curr_set = selected_players
         print(self.curr_set)
         for i in self.curr_set:
-            p = self.players[i]
+            p = self.players[i-1]
             if p.vote() == False:
-                self.rounds_logs[round_num] = (selected_players, False)
+                self.rounds_logs[player_num + 1] = (selected_players, "passed")
                 return
-        self.rounds_logs[round_num] = (selected_players, True)
+        self.rounds_logs[player_num + 1] = (selected_players, "failed")
 
     def do_all_missions(self):
         win_count = 0
         for player_num in self.players:
             self.do_mission(player_num)
-            result_tuple  = self.rounds_logs[player_num]
+            result_tuple  = self.rounds_logs[player_num + 1]
             result = result_tuple[1]
             if result:
                 win_count += 1
         if win_count >= 3:
             return True
         return False
-
-
-g = Game(5)
-g.assign_cards()
-count = 0
-for i in range(0,100):
-   if g.do_all_missions():
-       count += 1
-print(count)       

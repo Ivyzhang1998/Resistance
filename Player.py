@@ -19,10 +19,10 @@ class Player:
 
     #randomly select a subset of players with size k. Must select itself
     def select_players(self, k):
-        player_list = [0,1,2,3,4]
-        player_list.remove(self.index)
+        player_list = [1,2,3,4,5]
+        player_list.remove(self.index + 1)
         result = random.sample(player_list,k-1)
-        result.append(self.index)
+        result.append(self.index + 1)
         return result
 
 
